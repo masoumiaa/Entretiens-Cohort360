@@ -84,6 +84,11 @@ Chaque sous-repository contient son propre **README détaillé** avec :
 
 **Consultez les README individuels pour commencer !**
 
+## 📖 Rendu
+
+Vous pouvez fork le repository afin de recuperer le code existant puis nous soumettre l'utl de votre repo par e-mail.
+
+
 ---
 
 **Bon courage ! 🎓**

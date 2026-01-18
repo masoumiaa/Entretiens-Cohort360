@@ -8,6 +8,8 @@ Complete development guides for all project modules:
 
 Setup and API documentation for the medical prescription management backend.
 
+**Screenshots:** Application screenshots available in [Exercice_Django/screenshots/](./Exercice_Django/screenshots/)
+
 ## Frontend
 
 [React/Vite Development Guide](./Exercice_Front/README_DEV.md)

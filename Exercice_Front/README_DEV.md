@@ -91,10 +91,39 @@ src/
 ## Technologies Utilisées
 
 - **React 18** - Framework UI
+  - Composants modernes avec Hooks (useState, useEffect)
+  - Gestion d'état simple et efficace
+  - Écosystème riche et mature
+
 - **TypeScript** - Typage statique
+  - Détection des erreurs à la compilation
+  - Meilleure maintenabilité et documentation du code
+  - Autocomplétion IDE optimale
+  - Interfaces strictes pour les données API
+
 - **Vite** - Bundler et dev server ultra-rapide
+  - Hot Module Replacement (HMR) instantané
+  - Temps de build extrêmement rapides (ms)
+  - Optimisation automatique pour la production
+  - Configuration minimale, zéro-config
+
 - **Axios** - Client HTTP
-- **CSS3** - Styles modernes (Flexbox, Grid, gradients)
+  - Intercepteurs pour centraliser la gestion des erreurs
+  - Support natif des JSON
+  - Meilleure DX que fetch API
+  - Facile à mocker pour les tests
+
+- **CSS3** - Styles modernes
+  - Flexbox et Grid pour layouts responsive
+  - Variables CSS pour thème cohérent (dark mode)
+  - Pas de dépendances CSS supplémentaires
+  - Performances optimales
+
+- **Vitest + React Testing Library** - Testing
+  - Framework de test ultra-rapide (compatible Vite)
+  - RTL encourage les tests orientés utilisateur
+  - jsdom pour environnement DOM complet
+  - Couverture de tests claire et maintenable
 
 ## Qualité du Code
 

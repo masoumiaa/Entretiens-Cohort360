@@ -78,6 +78,43 @@ All migrations properly configured and tested.
 ✅ CORS configured for frontend communication
 ✅ Complete test suite with 30 passing tests
 
+## Technology Stack
+
+### Django 5.2.10 - Web Framework
+- Mature, production-proven framework with excellent ecosystem
+- Built-in ORM for intuitive data modeling
+- Robust security features (CSRF, SQL injection protection, XSS prevention)
+- Batteries-included (migrations, admin, auth, permissions)
+- Large community with extensive documentation and packages
+
+### Django REST Framework (DRF)
+- Industry standard for building REST APIs in Django
+- Automatic browsable API and Swagger documentation
+- Built-in serializers for validation and data transformation
+- ViewSets significantly reduce boilerplate code
+- Excellent filtering, pagination, and authentication support
+
+### SQLite - Database
+- Perfect for development without external dependencies
+- File-based, zero-configuration setup
+- Fully ACID compliant for data integrity
+- Easy to backup and version control (`db.sqlite3`)
+- Migration system ensures schema consistency
+- Easily swappable with PostgreSQL/MySQL for production
+
+### django-cors-headers
+- Simple CORS configuration for frontend-backend separation
+- Prevents browser CORS errors in development
+- Whitelist-based security approach
+- Production-ready configuration options
+
+### Python Testing Framework
+- Django's built-in unittest-based test runner
+- ORM integration for database testing without setup/teardown complexity
+- Fixture and factory support for test data
+- 30 comprehensive tests covering all critical paths
+- Fast execution with detailed error reporting
+
 ## How to Run
 
 ### Prerequisites

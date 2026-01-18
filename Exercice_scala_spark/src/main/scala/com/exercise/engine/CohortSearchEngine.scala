@@ -61,7 +61,95 @@ class CohortSearchEngine(solrUrl: String) {
      *   - Le code doit rester lisible et testable.
      *   - Toute hypothèse métier doit être cohérente avec les règles du README.
      */
-    -1
+    
+    // 1 Map des resources -> collections Solr
+    val resourceToCollection = Map(
+      "Patient" -> "patientAphp",
+      "Encounter" -> "encounterAphp",
+      "DocumentReference" -> "documentReferenceAphp",
+      "Organization" -> "organizationAphp"
+    )
+
+    // 2 DataFrame initial des patients : vide
+    var finalPatients: Option[Dataset[String]] = None
+    }
+
+    // 3 Parcours de chaque critère
+    criteria.Criteria.foreach { crit =>
+      val collectionName = resourceToCollection.getOrElse(crit.Resource,
+        throw new RuntimeException(s"Unknown resource: ${crit.Resource}"))
+
+      // Conversion des searchParams FHIR -> filtres Solr
+      val filters = crit.searchParams.split("&").map { param =>
+        val Array(key, value) = param.split("=", 2)
+        key match {
+          case "birthDate" if value.startsWith("ge") =>
+            val v = value.stripPrefix("ge")
+            s"$key:[$v" + "T00:00:00Z TO *]"
+          case "birthDate" if value.startsWith("le") =>
+            val v = value.stripPrefix("le")
+            s"$key:[* TO $v" + "T23:59:59Z]"
+          case "length" if value.startsWith("lt") =>
+            val v = value.stripPrefix("lt")
+            s"$key:[* TO ${v.toInt - 1}]"
+          case "length" if value.startsWith("gt") =>
+            val v = value.stripPrefix("gt")
+            s"$key:[${v.toInt + 1} TO *]"
+          case "gender" | "active" | "description" =>
+            s"$key:${value}"
+          case _ =>
+            throw new RuntimeException(s"Unsupported search param: $param")
+        }
+      }.toSeq
+
+      // Load la collection via SolrConnector
+      val df = connector.loadCollection(collectionName, filters)
+
+      // Extraction des patientIds (ou "subject" selon le schema Solr)
+      val patientIds = crit.Resource match {
+        case "Patient" =>
+          df.select($"id".as[String]).distinct()
+        case _ =>
+          // toutes les ressources liées au patient ont une colonne patientId
+          df.select($"patientId".as[String]).distinct()
+      }
+
+      // Inclusion / exclusion
+      crit.Include.toLowerCase match {
+        case "true" =>
+          finalPatients = finalPatients match {
+            case Some(fp) => Some(fp.intersect(patientIds))
+            case None     => Some(patientIds)
+          }
+        case "false" =>
+          finalPatients = finalPatients match {
+            case Some(fp) => Some(fp.except(patientIds))
+            case None     =>
+              // Si aucun patient de base, on prend tous les patients et exclut ceux-ci
+              val allPatients = connector.loadCollection("patientAphp")
+                .select($"id".as[String])
+                .distinct()
+              Some(allPatients.except(patientIds))
+          }
+        case other =>
+          throw new RuntimeException(s"Invalid Include value: $other")
+      }
+
+    // 4 Gestion des périmètres (Ex: Organization / Encounter)
+    if (criteria.Perimeters.nonEmpty) {
+      val encounters = connector.loadCollection("encounterAphp")
+        .filter($"organizationId".isin(criteria.Perimeters: _*))
+        .select($"patientId".as[String])
+        .distinct()
+
+      finalPatients = finalPatients match {
+        case Some(fp) => Some(fp.intersect(encounters))
+        case None     => Some(encounters)
+      }
+    }
+
+    // 5 Résultat : nombre de patients distinct
+    finalPatients.map(_.count()).getOrElse(0L)
   }
 
   def stop(): Unit = spark.stop()

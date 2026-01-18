@@ -1,29 +1,73 @@
-# Exercice Front-End
+# React + TypeScript + Vite
 
-## Contraintes techniques obligatoires
-- **TypeScript**
-- **React ≥ 18**
-- Le choix des autres librairies est **libre**, tant qu’elles sont pertinentes pour la réalisation de l’exercice
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Consignes générales
-L’application devra consommer les données via les **endpoints précédemment créés dans l’exercice back-end**.
+Currently, two official plugins are available:
 
-## Fonctionnalités attendues
-- Afficher la **liste des prescriptions avec leurs informations**: nom du patient, prenom du patient, nom du medicament, date de debut de prescription etc...
-- Permettre la **création d’une prescription**, avec les champs nécessaires, dont :
-  - la sélection d’un **médicament** parmi la liste des médicaments
-  - la sélection d’un **patient** parmi la liste des patients
-- Mettre en place le **filtrage** en utilisant les différents filtres exposés par l’API
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## À propos du design et des fonctionnalités
-Nous sommes conscients que ce type d’exercice peut être chronophage.  
-Vous êtes donc **libre d’aller aussi loin que vous le souhaitez** sur :
-- le **design**
-- l’organisation de la/les **vue(s)**
-- l’ajout de **fonctionnalités supplémentaires pertinentes et “sympathiques”**
+## React Compiler
 
-## Objectif de l’exercice
-L’objectif principal est d’évaluer :
-- la **qualité du code**
-- la **structuration du projet**
-- les **choix techniques**
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```

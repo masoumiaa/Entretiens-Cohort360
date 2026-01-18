@@ -1,0 +1,123 @@
+.prescription-form {
+  padding: 20px;
+  background: #1f2937;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.prescription-form h2 {
+  color: #e5e7eb;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #10b981;
+  padding-bottom: 10px;
+}
+
+.prescription-form form {
+  display: grid;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px;
+  border: 1px solid #475569;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #111827;
+  color: #e5e7eb;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.btn-submit {
+  padding: 12px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 10px;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: #059669;
+}
+
+.btn-submit:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+}
+
+.success {
+  background: #dcfce7;
+  color: #166534;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  border-left: 4px solid #16a34a;
+}
+
+.error {
+  background: #7f1d1d;
+  color: #fca5a5;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  border-left: 4px solid #dc2626;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #9ca3af;
+}
+
+@media (max-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .prescription-form {
+    padding: 15px;
+  }
+
+  .btn-submit {
+    padding: 10px;
+    font-size: 13px;
+  }
+}

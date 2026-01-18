@@ -1,0 +1,104 @@
+/* App Layout */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #0f172a;
+  max-width: 100%;
+  padding: 0 120px;
+  box-sizing: border-box;
+}
+
+.app-header {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.app-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.app-header p {
+  margin: 0;
+  font-size: 16px;
+  opacity: 0.95;
+}
+
+/* Navigation */
+.app-nav {
+  background: #1e293b;
+  border-bottom: 2px solid #374151;
+  padding: 15px 20px;
+  display: flex;
+  gap: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.nav-btn {
+  padding: 10px 16px;
+  border: 2px solid #475569;
+  background: #1e293b;
+  color: #e2e8f0;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-btn:hover {
+  border-color: #0284c7;
+  color: #0284c7;
+}
+
+.nav-btn.active {
+  background: #0284c7;
+  border-color: #0284c7;
+  color: white;
+}
+
+/* Main Content */
+.app-main {
+  flex: 1;
+  padding: 30px 0;
+  width: 100%;
+}
+
+/* Footer */
+.app-footer {
+  background: #1f2937;
+  color: #d1d5db;
+  text-align: center;
+  padding: 20px;
+  margin-top: 30px;
+  font-size: 13px;
+}
+
+.app-footer p {
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app-header h1 {
+    font-size: 24px;
+  }
+
+  .app-header {
+    padding: 30px 15px;
+  }
+
+  .app-nav {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .app-main {
+    padding: 20px 10px;
+  }
+}
